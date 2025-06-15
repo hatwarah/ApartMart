@@ -11,6 +11,17 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+
+// Admin Pages
+import AdminDashboard from './pages/admin/AdminDashboard';
+import UserManagement from './pages/admin/UserManagement';
+import ProductManagement from './pages/admin/ProductManagement';
+
+// Team Pages
+import TeamDashboard from './pages/team/TeamDashboard';
+import ProductForm from './pages/team/ProductForm';
 
 function App() {
   const { initialize, user } = useAuthStore();
@@ -55,12 +66,16 @@ function App() {
             path="/cart"
             element={
               <ProtectedRoute>
-                <div className="min-h-screen flex items-center justify-center">
-                  <div className="text-center">
-                    <h1 className="text-3xl font-bold text-gray-900">Shopping Cart</h1>
-                    <p className="text-gray-600 mt-4">Coming soon...</p>
-                  </div>
-                </div>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <Checkout />
               </ProtectedRoute>
             }
           />
@@ -95,12 +110,53 @@ function App() {
           
           {/* Admin Routes */}
           <Route
-            path="/admin/*"
+            path="/admin"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <UserManagement />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/admin/products"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <ProductManagement />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/admin/orders"
             element={
               <ProtectedRoute requiredRole="admin">
                 <div className="min-h-screen flex items-center justify-center">
                   <div className="text-center">
-                    <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+                    <h1 className="text-3xl font-bold text-gray-900">Order Management</h1>
+                    <p className="text-gray-600 mt-4">Coming soon...</p>
+                  </div>
+                </div>
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/admin/analytics"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <div className="min-h-screen flex items-center justify-center">
+                  <div className="text-center">
+                    <h1 className="text-3xl font-bold text-gray-900">Analytics Dashboard</h1>
                     <p className="text-gray-600 mt-4">Coming soon...</p>
                   </div>
                 </div>
@@ -110,12 +166,48 @@ function App() {
           
           {/* Team Routes */}
           <Route
-            path="/team/*"
+            path="/team"
+            element={
+              <ProtectedRoute requiredRole="team">
+                <TeamDashboard />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/team/products"
+            element={
+              <ProtectedRoute requiredRole="team">
+                <ProductManagement />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/team/products/new"
+            element={
+              <ProtectedRoute requiredRole="team">
+                <ProductForm />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/team/products/:id/edit"
+            element={
+              <ProtectedRoute requiredRole="team">
+                <ProductForm />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/team/orders"
             element={
               <ProtectedRoute requiredRole="team">
                 <div className="min-h-screen flex items-center justify-center">
                   <div className="text-center">
-                    <h1 className="text-3xl font-bold text-gray-900">Team Dashboard</h1>
+                    <h1 className="text-3xl font-bold text-gray-900">Order Processing</h1>
                     <p className="text-gray-600 mt-4">Coming soon...</p>
                   </div>
                 </div>
